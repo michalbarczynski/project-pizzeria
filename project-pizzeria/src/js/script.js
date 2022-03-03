@@ -59,7 +59,9 @@
       thisProduct.id = id;
       thisProduct.data = data;
       
+      thisProduct.initAccordion();
       thisProduct.renderInMenu();
+      thisProduct.getElements();
 
       console.log('new Product:', thisProduct);
     }
@@ -67,17 +69,80 @@
     renderInMenu(){
       const thisProduct = this;
 
-      const generatedHTML = templates.menuProduct(thisProduct.data); //nie rozumiem w chuj
+      const generatedHTML = templates.menuProduct(thisProduct.data); //WTF?
 
       thisProduct.element = utils.createDOMFromHTML(generatedHTML);
 
       const menuContainer = document.querySelector(select.containerOf.menu);
       menuContainer.appendChild(thisProduct.element);
     }
-  }
 
-  const app = {
+    getElements(){
+      const thisProduct = this;
     
+      thisProduct.accordionTrigger = thisProduct.element.querySelector(select.menuProduct.clickable); 
+      //Tu zmienić coś w powyższej linii na thisProduct.accordionTrigger.addEventListener('click', function(event) {...}
+
+      console.log(thisProduct.accordionTrigger);
+      
+      thisProduct.form = thisProduct.element.querySelector(select.menuProduct.form);
+      console.log(thisProduct.form);
+
+      thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
+      console.log(thisProduct.formInputs);
+      
+      thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
+    
+      thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
+    }
+ 
+   
+    initAccordion(){
+      const thisProduct = this;
+      console.log('dokończ funckję z CLICKABLETRIGGER');
+
+      /* find the clickable trigger (the element that should react to clicking) */
+      const clickableTrigger = select.querySelector(select.menuProduct.clickable); //select?document?article?
+      console.log(clickableTrigger);
+      /* START: add event listener to clickable trigger on event click */
+      clickableTrigger.addEventListener('click', function(event) {
+        /* prevent default action for event */
+        event.preventDefault();
+        /* find active product (product that has active class) */
+        thisProduct.activeProduct = thisProduct.element.querySelector('classNames.menuProduct.wrapperActive'); 
+        /* if there is active product and it's not thisProduct.element, remove class active from it */
+        if (thisProduct.activeProduct != null) {
+          thisProduct.activeProduct.classList.remove('active');
+        }
+        /* toggle active class on thisProduct.element */
+        (thisProduct.element).classList.toggle('active');
+      });
+    }
+
+    initOrderForm(){
+      const thisProduct = this;
+      
+      thisProduct.form.addEventListener('submit', function(event){
+        event.preventDefault();
+        //thisProduct.processOrder();
+      });
+      
+      for(let input of thisProduct.formInputs){
+        input.addEventListener('change', function(){
+          //thisProduct.processOrder();
+        });
+      }
+      
+      thisProduct.cartButton.addEventListener('click', function(event){
+        event.preventDefault();
+        //thisProduct.processOrder();
+      });
+      
+      console.log('method:', this.initOrderForm);
+    }
+  } 
+
+  const app = {    
     initMenu: function(){
       const thisApp =this;
       console.log('thisApp.data:', thisApp.data);
