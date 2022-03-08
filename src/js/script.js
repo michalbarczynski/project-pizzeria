@@ -160,13 +160,13 @@
             // check if the option is not default
             if (option.default == false) {
               // add option price to price variable
-              console.log(price + 1)
+              price = price + option.price; //CZYM JEST OPTION.PRICE
             }
           } else {
             // check if the option is default
             if (option.default == true) {
               // reduce price variable}
-              console.log(price -1)
+              price = price - option.price;
             }
           }
         }
@@ -198,7 +198,7 @@
         .then(function (parsedResponse) {
           console.log('parsedResponse', parsedResponse);
           /* save parsedResponse as thisApp.data.products */
-          parsedResponse = thisApp.data.products;
+          thisApp.data.products =  parsedResponse; //CZEMU NA ODWRÓT NIE DZIAŁA
           /* execute initMenu method */
           thisApp.initMenu();
         });
