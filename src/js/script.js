@@ -159,7 +159,7 @@
       thisApp.initMenu();
     },
   };
-
+  
   app.init();
 }
 
