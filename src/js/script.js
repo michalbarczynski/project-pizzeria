@@ -68,18 +68,10 @@
       thisProduct.getElements();
       thisProduct.initAccordion();
       thisProduct.initOrderForm();
-      //thisProduct.initAmountWidget();
+      thisProduct.initAmountWidget;
       thisProduct.processOrder();
     }
-    /*
-        class AmountWidget {
-          constructor(element) {
-            const thisWidget = this;
 
-            console.log('AmountWidget:', thisWidget);
-            console.log('constructoe arguments:', element);
-          }
-    */
     renderInMenu() {
       const thisProduct = this;
 
@@ -100,7 +92,7 @@
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
       thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
-      //thisProduct.dom.amountWidget = thisProduct.element.querySelector(select.menuProduct.amountWidget);
+      thisProduct.amountWidgetElem = thisProduct.element.querySelector(select.menuProduct.amountWidget);
     }
 
 
@@ -129,11 +121,9 @@
       let price = thisProduct.data.price;
 
       for (let paramId in thisProduct.data.params) {
-
         const param = thisProduct.data.params[paramId];
 
         for (let optionId in param.options) {
-
           const option = param.options[optionId];
           const activeProduct = classNames.menuProduct.imageVisible;
           const optionSelected = formData[paramId] && formData[paramId].includes(optionId);
@@ -143,10 +133,7 @@
             if (!option.default) {
               price = price + option.price;
             }
-          }
-
-          else if (option.default) {
-
+          } else if (option.default) {
             price = price - option.price;
           }
           if (optionImage) {
@@ -158,9 +145,10 @@
           }
         }
       }
-
+      //price *= thisProduct.amountWidget.value; <--- TA LINIA POWODUJE BUGA
       thisProduct.priceElem.innerHTML = price;
     }
+
     initOrderForm() {
       const thisProduct = this;
 
@@ -180,6 +168,77 @@
         thisProduct.processOrder();
       });
 
+    }
+
+    initAmountWidget() {
+      const thisProduct = this;
+
+      thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem);
+      thisProduct.amountWidget.addEventListener('updated', function(){
+        thisProduct.processOrder();
+      });
+    }
+  }
+
+  class AmountWidget {
+    constructor(element) {
+      const thisWidget = this;
+
+      thisWidget.getElements(element);
+      thisWidget.setValue(thisWidget.input.value);
+      thisWidget.initActions();
+      console.log('AmountWidget:', thisWidget);
+      console.log('constructor arguments:', element);
+    }
+
+    getElements(element) {
+      const thisWidget = this;
+
+      thisWidget.element = element;
+      thisWidget.input = thisWidget.element.querySelector(select.widgets.amount.input);
+      thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.amount.linkDecrease);
+      thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
+    }
+
+    setValue(value) {
+      const thisWidget = this;
+      const newValue = parseInt(value);
+      /* Add validation 
+      if (thisWidget.value == value && !newValue == null/NaN ) {
+        thisWidget.value = newValue;
+      }
+      JAKA JEST RÓŻNICA MIĘDZY SPRAWDZENIEM CZY INPUT JEST RÓWNY STARTEJ WARTOŚCI A SPRAWDZENIEM CZY NIE JEST RÓWNY NOWEJ WARTOŚCI
+      */
+      /* TODO: Add validation */
+      if (thisWidget.value !== newValue && !isNaN(newValue) && newValue >= settings.amountWidget.defaultMin && newValue <= settings.amountWidget.defaultMin) {
+        thisWidget.value = newValue;
+      } //czy dwa ostatnie warunki w drugim ifie?
+
+      thisWidget.input.value = thisWidget.value;
+      thisWidget.announce();
+      console.log(thisWidget);
+    }
+
+    initActions() {
+      const thisWidget = this;
+      //CZY TU MA BYĆ EVENT.PREVENTDEFAULT
+      thisWidget.input.addEventListener('change', function () {
+        thisWidget.setValue(thisWidget.value); // czy thisWidget.input.value?
+        console.log(thisWidget.value);
+      });
+      thisWidget.linkIncrease('click', function () {
+        thisWidget.setValue(thisWidget.value + 1);
+      });
+      thisWidget.linkDecrease('click', function () {
+        thisWidget.setValue(thisWidget.value - 1);
+      });
+    }
+    
+    announce(){
+      const thisWidget = this;
+
+      const event = new Event('updated');
+      thisWidget.element.dispatchEvent(event);
     }
   }
 
@@ -223,4 +282,4 @@
   app.init();
 }
 
-
+//na spotkanie warsztaty zadanie 9.0.3 funkcja sort
