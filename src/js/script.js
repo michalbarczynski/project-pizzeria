@@ -26,11 +26,14 @@
     },
     widgets: {
       amount: {
-        input: 'input[name="amount"]',
+        input: 'input.amount',
         linkDecrease: 'a[href="#less"]',
         linkIncrease: 'a[href="#more"]',
       },
     },
+    cart: {
+      toggleTrigger: '.cart__summary',
+    }
   };
 
   const classNames = {
@@ -68,7 +71,7 @@
       thisProduct.getElements();
       thisProduct.initAccordion();
       thisProduct.initOrderForm();
-      thisProduct.initAmountWidget;
+      thisProduct.initAmountWidget();
       thisProduct.processOrder();
     }
 
@@ -145,7 +148,7 @@
           }
         }
       }
-      //price *= thisProduct.amountWidget.value; <--- TA LINIA POWODUJE BUGA
+      price *= thisProduct.amountWidget.value;
       thisProduct.priceElem.innerHTML = price;
     }
 
@@ -174,7 +177,7 @@
       const thisProduct = this;
 
       thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem);
-      thisProduct.amountWidget.addEventListener('updated', function(){
+      thisProduct.amountWidgetElem.addEventListener('updated', function () {
         thisProduct.processOrder();
       });
     }
@@ -185,7 +188,7 @@
       const thisWidget = this;
 
       thisWidget.getElements(element);
-      thisWidget.setValue(thisWidget.input.value);
+      thisWidget.setValue(thisWidget.value);
       thisWidget.initActions();
       console.log('AmountWidget:', thisWidget);
       console.log('constructor arguments:', element);
@@ -210,6 +213,9 @@
       JAKA JEST RÓŻNICA MIĘDZY SPRAWDZENIEM CZY INPUT JEST RÓWNY STARTEJ WARTOŚCI A SPRAWDZENIEM CZY NIE JEST RÓWNY NOWEJ WARTOŚCI
       */
       /* TODO: Add validation */
+
+      thisWidget.value = settings.amountWidget.defaultValue;
+
       if (thisWidget.value !== newValue && !isNaN(newValue) && newValue >= settings.amountWidget.defaultMin && newValue <= settings.amountWidget.defaultMin) {
         thisWidget.value = newValue;
       } //czy dwa ostatnie warunki w drugim ifie?
@@ -226,15 +232,15 @@
         thisWidget.setValue(thisWidget.value); // czy thisWidget.input.value?
         console.log(thisWidget.value);
       });
-      thisWidget.linkIncrease('click', function () {
+      thisWidget.linkIncrease.addEventListener('click', function () {
         thisWidget.setValue(thisWidget.value + 1);
       });
-      thisWidget.linkDecrease('click', function () {
+      thisWidget.linkDecrease.addEventListener('click', function () {
         thisWidget.setValue(thisWidget.value - 1);
       });
     }
-    
-    announce(){
+
+    announce() {
       const thisWidget = this;
 
       const event = new Event('updated');
@@ -242,8 +248,36 @@
     }
   }
 
+  class Cart {
+    constructor(element) {
+      const thisCart = this;
+
+      thisCart.products = [];
+      thisCart.getElements(element);
+      thisCart.initActions();
+
+      console.log('new Cart', thisCart);
+    }
+
+    getElements(element) {
+      const thisCart = this;
+      
+      thisCart.dom = {};
+      thisCart.dom.wrapper = element;
+      thisCart.dom.toggleTrigger = thisCart.dom.wrapper.querySelector(select.cart.toggleTrigger);
+    }
+
+    initActions() {
+      const thisCart = this;
+      //CZY TU MA BYĆ EVENT.PREVENTDEFAULT
+      thisCart.dom.toggleTrigger.addEventListener('click', function() {
+        thisCart.dom.wrapper.classList.toggle('active');
+      });
+   
+    }
+  }
   const app = {
-    initMenu: function () {
+    initMenu: function() {
       const thisApp = this;
 
       for (let productData in thisApp.data.products) {
@@ -251,7 +285,7 @@
       }
     },
 
-    initData: function () {
+    initData: function() {
       const thisApp = this;
       const url = settings.db.url + '/' + settings.db.products;
 
@@ -272,10 +306,16 @@
       thisApp.data = {};
     },
 
-    init: function () {
+    initCart: function() {
+      const thisApp = this;
+      const cartElem = document.querySelector(select.containerOf.cart);
+      thisApp.cart = new Cart(cartElem);
+    },
+
+    init: function() {
       const thisApp = this;
       thisApp.initData();
-      thisApp.initMenu();
+      thisApp.initCart();
     },
   };
 
