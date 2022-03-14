@@ -148,6 +148,7 @@
           }
         }
       }
+      thisProduct.priceSingle = price;
       price *= thisProduct.amountWidget.value;
       thisProduct.priceElem.innerHTML = price;
     }
@@ -169,6 +170,7 @@
       thisProduct.cartButton.addEventListener('click', function (event) {
         event.preventDefault();
         thisProduct.processOrder();
+        thisProduct.addToCart();
       });
 
     }
@@ -181,17 +183,35 @@
         thisProduct.processOrder();
       });
     }
-  }
+
+    addToCart() {
+      const thisProduct = this;
+
+      app.cart.add(thisProduct);
+    }
+
+    prepareCartProduct() {
+      const thisProduct = this;
+
+      const productSummary = {
+        id: thisProduct.id,
+        name: thisProduct.name,
+        amount: thisProduct.amount,
+        price: thisProduct.price,
+        priceSingle: thisProduct.priceSingle,
+        params: {}
+      };
+      
+      return productSummary;
+    }
+  } 
 
   class AmountWidget {
     constructor(element) {
       const thisWidget = this;
-
       thisWidget.getElements(element);
       thisWidget.setValue(thisWidget.value);
       thisWidget.initActions();
-      console.log('AmountWidget:', thisWidget);
-      console.log('constructor arguments:', element);
     }
 
     getElements(element) {
@@ -216,26 +236,24 @@
 
       thisWidget.value = settings.amountWidget.defaultValue;
 
-      if (thisWidget.value !== newValue && !isNaN(newValue) && newValue >= settings.amountWidget.defaultMin && newValue <= settings.amountWidget.defaultMin) {
+      if (thisWidget.value !== newValue && !isNaN(newValue) && newValue >= settings.amountWidget.defaultMin && newValue <= settings.amountWidget.defaultMax) {
         thisWidget.value = newValue;
       } //czy dwa ostatnie warunki w drugim ifie?
 
       thisWidget.input.value = thisWidget.value;
       thisWidget.announce();
-      console.log(thisWidget);
     }
 
     initActions() {
       const thisWidget = this;
       //CZY TU MA BYĆ EVENT.PREVENTDEFAULT
       thisWidget.input.addEventListener('change', function () {
-        thisWidget.setValue(thisWidget.value); // czy thisWidget.input.value?
-        console.log(thisWidget.value);
+        thisWidget.setValue(thisWidget.value); 
       });
-      thisWidget.linkIncrease.addEventListener('click', function () {
+      thisWidget.linkIncrease.addEventListener('click', function() {
         thisWidget.setValue(thisWidget.value + 1);
       });
-      thisWidget.linkDecrease.addEventListener('click', function () {
+      thisWidget.linkDecrease.addEventListener('click', function() {
         thisWidget.setValue(thisWidget.value - 1);
       });
     }
@@ -273,7 +291,12 @@
       thisCart.dom.toggleTrigger.addEventListener('click', function() {
         thisCart.dom.wrapper.classList.toggle('active');
       });
-   
+    }
+
+    add(menuProduct) {
+      //const thisCart = this;  
+      
+      console.log('adding product', menuProduct);
     }
   }
   const app = {
