@@ -77,17 +77,13 @@
 
     renderInMenu() {
       const thisProduct = this;
-      const generatedHTML = templates.menuProduct(thisProduct.data); //TUTAJ DO ZMIANY ZAWARTOŚĆ 
-      const generatedDOM = '';
-      console.log(generatedDOM);
+
+      const generatedHTML = templates.menuProduct(thisProduct.data);
 
       thisProduct.element = utils.createDOMFromHTML(generatedHTML);
 
       const menuContainer = document.querySelector(select.containerOf.menu);
       menuContainer.appendChild(thisProduct.element);
-      /*Za pomocą odpowiedniego szablonu stwórz kod HTML i zapisz go w stałej generatedHTML. Jako obiekt z danymi dla szablonu, wykorzystaj oczywiście nasz z podstawowymi informacjami o produkcie obiekt otrzymany w argumencie.
-Następnie ten kod zamień na element DOM i zapisz w następnej stałej – generatedDOM.
-Dodaj ten element DOM do thisCart.dom.productList (użyj metody appendChild)*/
     }
 
     getElements() {
@@ -223,7 +219,7 @@ Dodaj ten element DOM do thisCart.dom.productList (użyj metody appendChild)*/
           label: param.label,
           options: {}
         };
-
+        
         // for every option in this category
         for (let optionId in param.options) {
           const option = param.options[optionId];
@@ -231,7 +227,7 @@ Dodaj ten element DOM do thisCart.dom.productList (użyj metody appendChild)*/
 
           if (optionSelected) {
             // option is selected!
-            console.log(option);
+            console.log(params[paramId].options);
           }
         }
       }
@@ -239,9 +235,10 @@ Dodaj ten element DOM do thisCart.dom.productList (użyj metody appendChild)*/
     }
   }
 
-  class AmountWidget {
+  class AmountWidget {  
     constructor(element) {
       const thisWidget = this;
+      thisWidget.value = settings.amountWidget.defaultValue;
       thisWidget.getElements(element);
       thisWidget.setValue(thisWidget.value);
       thisWidget.initActions();
@@ -259,16 +256,7 @@ Dodaj ten element DOM do thisCart.dom.productList (użyj metody appendChild)*/
     setValue(value) {
       const thisWidget = this;
       const newValue = parseInt(value);
-      /* Add validation 
-      if (thisWidget.value == value && !newValue == null/NaN ) {
-        thisWidget.value = newValue;
-      }
-      JAKA JEST RÓŻNICA MIĘDZY SPRAWDZENIEM CZY INPUT JEST RÓWNY STARTEJ WARTOŚCI A SPRAWDZENIEM CZY NIE JEST RÓWNY NOWEJ WARTOŚCI
-      */
-      /* TODO: Add validation */
-
-      thisWidget.value = settings.amountWidget.defaultValue;
-
+   
       if (thisWidget.value !== newValue && !isNaN(newValue) && newValue >= settings.amountWidget.defaultMin && newValue <= settings.amountWidget.defaultMax) {
         thisWidget.value = newValue;
       } //czy dwa ostatnie warunki w drugim ifie?
@@ -328,7 +316,18 @@ Dodaj ten element DOM do thisCart.dom.productList (użyj metody appendChild)*/
 
     add(menuProduct) {
       //const thisCart = this;  
+      const thisProduct = this;
+      const generatedHTML = templates.menuProduct(thisProduct.data); //TUTAJ DO ZMIANY ZAWARTOŚĆ 
+      const generatedDOM = '';
+      console.log(generatedDOM);
 
+      thisProduct.element = utils.createDOMFromHTML(generatedHTML);
+
+      const menuContainer = document.querySelector(select.containerOf.menu);
+      menuContainer.appendChild(thisProduct.element);
+      /*Za pomocą odpowiedniego szablonu stwórz kod HTML i zapisz go w stałej generatedHTML. Jako obiekt z danymi dla szablonu, wykorzystaj oczywiście nasz z podstawowymi informacjami o produkcie obiekt otrzymany w argumencie.
+      Następnie ten kod zamień na element DOM i zapisz w następnej stałej – generatedDOM.
+      Dodaj ten element DOM do thisCart.dom.productList (użyj metody appendChild)*/
       console.log('adding product', menuProduct);
     }
   }
@@ -377,5 +376,3 @@ Dodaj ten element DOM do thisCart.dom.productList (użyj metody appendChild)*/
 
   app.init();
 }
-
-//na spotkanie warsztaty zadanie 9.0.3 funkcja sort
