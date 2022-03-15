@@ -77,13 +77,17 @@
 
     renderInMenu() {
       const thisProduct = this;
-
-      const generatedHTML = templates.menuProduct(thisProduct.data);
+      const generatedHTML = templates.menuProduct(thisProduct.data); //TUTAJ DO ZMIANY ZAWARTOŚĆ 
+      const generatedDOM = '';
+      console.log(generatedDOM);
 
       thisProduct.element = utils.createDOMFromHTML(generatedHTML);
 
       const menuContainer = document.querySelector(select.containerOf.menu);
       menuContainer.appendChild(thisProduct.element);
+      /*Za pomocą odpowiedniego szablonu stwórz kod HTML i zapisz go w stałej generatedHTML. Jako obiekt z danymi dla szablonu, wykorzystaj oczywiście nasz z podstawowymi informacjami o produkcie obiekt otrzymany w argumencie.
+Następnie ten kod zamień na element DOM i zapisz w następnej stałej – generatedDOM.
+Dodaj ten element DOM do thisCart.dom.productList (użyj metody appendChild)*/
     }
 
     getElements() {
@@ -96,6 +100,8 @@
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
       thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
       thisProduct.amountWidgetElem = thisProduct.element.querySelector(select.menuProduct.amountWidget);
+      //thisProduct.dom.productList = thisProduct.element.querySelector(select.containerOf.menu);//czy dobrze?; getElementById is not a function
+      //thisProduct.dom.productList = thisProduct.element.querySelector(select.containerOf.menu);
     }
 
 
@@ -201,10 +207,37 @@
         priceSingle: thisProduct.priceSingle,
         params: {}
       };
-      
+
       return productSummary;
     }
-  } 
+
+    prepareCartProductParams() {
+      const thisProduct = this;
+      const formData = utils.serializeFormToObject(thisProduct.form);
+      const params = {};
+
+      for (let paramId in thisProduct.data.params) {
+        const param = thisProduct.data.params[paramId];
+        // create category param in params const eg. params = { ingredients: { name: 'Ingredients', options: {}}}
+        params[paramId] = {
+          label: param.label,
+          options: {}
+        };
+
+        // for every option in this category
+        for (let optionId in param.options) {
+          const option = param.options[optionId];
+          const optionSelected = formData[paramId] && formData[paramId].includes(optionId);
+
+          if (optionSelected) {
+            // option is selected!
+            console.log(option);
+          }
+        }
+      }
+      return params;
+    }
+  }
 
   class AmountWidget {
     constructor(element) {
@@ -248,12 +281,12 @@
       const thisWidget = this;
       //CZY TU MA BYĆ EVENT.PREVENTDEFAULT
       thisWidget.input.addEventListener('change', function () {
-        thisWidget.setValue(thisWidget.input.value); 
+        thisWidget.setValue(thisWidget.input.value);
       });
-      thisWidget.linkIncrease.addEventListener('click', function() {
+      thisWidget.linkIncrease.addEventListener('click', function () {
         thisWidget.setValue(thisWidget.value + 1);
       });
-      thisWidget.linkDecrease.addEventListener('click', function() {
+      thisWidget.linkDecrease.addEventListener('click', function () {
         thisWidget.setValue(thisWidget.value - 1);
       });
     }
@@ -279,7 +312,7 @@
 
     getElements(element) {
       const thisCart = this;
-      
+
       thisCart.dom = {};
       thisCart.dom.wrapper = element;
       thisCart.dom.toggleTrigger = thisCart.dom.wrapper.querySelector(select.cart.toggleTrigger);
@@ -288,19 +321,19 @@
     initActions() {
       const thisCart = this;
       //CZY TU MA BYĆ EVENT.PREVENTDEFAULT
-      thisCart.dom.toggleTrigger.addEventListener('click', function() {
+      thisCart.dom.toggleTrigger.addEventListener('click', function () {
         thisCart.dom.wrapper.classList.toggle('active');
       });
     }
 
     add(menuProduct) {
       //const thisCart = this;  
-      
+
       console.log('adding product', menuProduct);
     }
   }
   const app = {
-    initMenu: function() {
+    initMenu: function () {
       const thisApp = this;
 
       for (let productData in thisApp.data.products) {
@@ -308,7 +341,7 @@
       }
     },
 
-    initData: function() {
+    initData: function () {
       const thisApp = this;
       const url = settings.db.url + '/' + settings.db.products;
 
@@ -329,13 +362,13 @@
       thisApp.data = {};
     },
 
-    initCart: function() {
+    initCart: function () {
       const thisApp = this;
       const cartElem = document.querySelector(select.containerOf.cart);
       thisApp.cart = new Cart(cartElem);
     },
 
-    init: function() {
+    init: function () {
       const thisApp = this;
       thisApp.initData();
       thisApp.initCart();
