@@ -248,7 +248,7 @@
       const thisWidget = this;
       //CZY TU MA BYĆ EVENT.PREVENTDEFAULT
       thisWidget.input.addEventListener('change', function () {
-        thisWidget.setValue(thisWidget.value); 
+        thisWidget.setValue(thisWidget.input.value); 
       });
       thisWidget.linkIncrease.addEventListener('click', function() {
         thisWidget.setValue(thisWidget.value + 1);
