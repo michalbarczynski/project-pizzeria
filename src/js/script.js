@@ -6,6 +6,7 @@
   const select = {
     templateOf: {
       menuProduct: '#template-menu-product',
+      cart: '#template-cart-product',
     },
     containerOf: {
       menu: '#product-list',
@@ -33,7 +34,8 @@
     },
     cart: {
       toggleTrigger: '.cart__summary',
-    }
+      productList: '.cart_order_summary',
+    },
   };
 
   const classNames = {
@@ -58,6 +60,7 @@
 
   const templates = {
     menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML),
+    cartProduct: Handlebars.compile(document.querySelector(select.templateOf.cart).innerHTML),
   };
 
   class Product {
@@ -96,8 +99,6 @@
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
       thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
       thisProduct.amountWidgetElem = thisProduct.element.querySelector(select.menuProduct.amountWidget);
-      //thisProduct.dom.productList = thisProduct.element.querySelector(select.containerOf.menu);//czy dobrze?; getElementById is not a function
-      //thisProduct.dom.productList = thisProduct.element.querySelector(select.containerOf.menu);
     }
 
 
@@ -174,7 +175,6 @@
         thisProduct.processOrder();
         thisProduct.addToCart();
       });
-
     }
 
     initAmountWidget() {
@@ -207,6 +207,7 @@
       return productSummary;
     }
 
+    //TA FUNKCJA DO ANALIZY
     prepareCartProductParams() {
       const thisProduct = this;
       const formData = utils.serializeFormToObject(thisProduct.form);
@@ -214,20 +215,15 @@
 
       for (let paramId in thisProduct.data.params) {
         const param = thisProduct.data.params[paramId];
-        // create category param in params const eg. params = { ingredients: { name: 'Ingredients', options: {}}}
         params[paramId] = {
           label: param.label,
           options: {}
         };
-        
-        // for every option in this category
         for (let optionId in param.options) {
           const option = param.options[optionId];
           const optionSelected = formData[paramId] && formData[paramId].includes(optionId);
-
           if (optionSelected) {
-            // option is selected!
-            console.log(params[paramId].options);
+            params[paramId].options[optionId] = option.label;
           }
         }
       }
@@ -235,7 +231,7 @@
     }
   }
 
-  class AmountWidget {  
+  class AmountWidget {
     constructor(element) {
       const thisWidget = this;
       thisWidget.value = settings.amountWidget.defaultValue;
@@ -256,10 +252,10 @@
     setValue(value) {
       const thisWidget = this;
       const newValue = parseInt(value);
-   
+
       if (thisWidget.value !== newValue && !isNaN(newValue) && newValue >= settings.amountWidget.defaultMin && newValue <= settings.amountWidget.defaultMax) {
         thisWidget.value = newValue;
-      } //czy dwa ostatnie warunki w drugim ifie?
+      }
 
       thisWidget.input.value = thisWidget.value;
       thisWidget.announce();
@@ -300,8 +296,10 @@
 
     getElements(element) {
       const thisCart = this;
-
       thisCart.dom = {};
+
+      thisCart.dom.productList = document.querySelector(select.containerOf.menu);
+
       thisCart.dom.wrapper = element;
       thisCart.dom.toggleTrigger = thisCart.dom.wrapper.querySelector(select.cart.toggleTrigger);
     }
@@ -314,23 +312,22 @@
       });
     }
 
+    //W BLOKACH POSZCZEGÓLNYCH LOOPACH TRZEBA ZMIENIĆ LET NA CONST
     add(menuProduct) {
-      //const thisCart = this;  
-      const thisProduct = this;
-      const generatedHTML = templates.menuProduct(thisProduct.data); //TUTAJ DO ZMIANY ZAWARTOŚĆ 
-      const generatedDOM = '';
-      console.log(generatedDOM);
+      const thisCart = this;
+      const generatedHTML = templates.cartProduct(menuProduct);
+      const generatedDOM = utils.createDOMFromHTML(generatedHTML);
 
-      thisProduct.element = utils.createDOMFromHTML(generatedHTML);
+      //menuProduct.appendChild(thisCart.element);
+      thisCart.dom.productList.appendChild(generatedDOM);
 
-      const menuContainer = document.querySelector(select.containerOf.menu);
-      menuContainer.appendChild(thisProduct.element);
-      /*Za pomocą odpowiedniego szablonu stwórz kod HTML i zapisz go w stałej generatedHTML. Jako obiekt z danymi dla szablonu, wykorzystaj oczywiście nasz z podstawowymi informacjami o produkcie obiekt otrzymany w argumencie.
-      Następnie ten kod zamień na element DOM i zapisz w następnej stałej – generatedDOM.
-      Dodaj ten element DOM do thisCart.dom.productList (użyj metody appendChild)*/
       console.log('adding product', menuProduct);
+      
+      thisCart.products.push(menuProduct);
+      console.log('thisCart.products', thisCart.products);
     }
   }
+
   const app = {
     initMenu: function () {
       const thisApp = this;
