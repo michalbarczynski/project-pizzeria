@@ -9,6 +9,7 @@
       thisCartProduct.amount = menuProduct.amount;
       
       thisCartProduct.getElements(element);
+      thisCartProduct.initAmountWidget();
     }
 
     getElements(element) {
@@ -18,19 +19,19 @@
     }
 
     initActions() {
-
+      //const thisCartProduct = this;
     }
 
     initAmountWidget() {
-
+      //const thisCartProduct = this;
     }
 
     remove() {
-
+      //const thisCartProduct = this;
     }
 
     getData() {
-
+      //const thisCartProduct = this;
     }
-  }
-  export default CartProduct;
+  } 
+  export default CartProduct; 

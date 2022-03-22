@@ -21,7 +21,7 @@ export const select = {
         priceElem: '.product__total-price .price',
         imageWrapper: '.product__images',
         amountWidget: '.widget-amount',
-        cartButton: '[href="#add-to-cart"]',
+        cartButton: '[href="#add-to-cart"]',    
     },
     widgets: {
         amount: {
@@ -39,10 +39,24 @@ export const select = {
             output: '.output',
         },
     },
-    cart: {
+    cart: { //CZY TE OBIEKTY BYŁY GDZIEŚ DOSTĘPNE? - START
+        productList: '.cart__order-summary',
         toggleTrigger: '.cart__summary',
-        productList: '.cart_order_summary',
+        totalNumber: `.cart__total-number`,
+        totalPrice: '.cart__total-price strong, .cart__order-total .cart__order-price-sum strong',
+        subtotalPrice: '.cart__order-subtotal .cart__order-price-sum strong',
+        deliveryFee: '.cart__order-delivery .cart__order-price-sum strong',
+        form: '.cart__order',
+        formSubmit: '.cart__order [type="submit"]',
+        phone: '[name="phone"]',
+        address: '[name="address"]',
     },
+      cartProduct: {
+        amountWidget: '.widget-amount',
+        price: '.cart__product-price',
+        edit: '[href="#edit"]',
+        remove: '[href="#remove"]',
+    }, //CZY TE OBIEKTY BYŁY GDZIEŚ DOSTĘPNE? - END
     booking: {
         peopleAmount: '.people-amount',
         hoursAmount: '.hours-amount',
@@ -101,6 +115,6 @@ export const settings = {
 
 export const templates = {
     menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML),
-    cartProduct: Handlebars.compile(document.querySelector(select.templateOf.cart).innerHTML),
+    cartProduct: Handlebars.compile(document.querySelector(select.templateOf.cartProduct).innerHTML),
     bookingWidget: Handlebars.compile(document.querySelector(select.templateOf.bookingWidget).innerHTML),
 };
