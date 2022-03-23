@@ -74,6 +74,7 @@ utils.convertDataSourceToDbJson = function(){
 Handlebars.registerHelper('ifEquals', function(arg1, arg2, options) {
   return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
 });
+<<<<<<< HEAD
 
 Handlebars.registerHelper('joinValues', function(input, options) {
   return Object.values(input).join(options.fn(this));
@@ -81,3 +82,9 @@ Handlebars.registerHelper('joinValues', function(input, options) {
 
 
 export default utils;
+=======
+Handlebars.registerHelper('joinValues', function(input, options) {
+  return Object.values(input).join(options.fn(this));
+});
+export default utils;
+>>>>>>> 32b0c2fef7f22bca03ffbd82b6e784932d6c6a52
