@@ -39,7 +39,7 @@ export const select = {
             output: '.output',
         },
     },
-    cart: { //CZY TE OBIEKTY BYŁY GDZIEŚ DOSTĘPNE? - START
+    cart: { 
         productList: '.cart__order-summary',
         toggleTrigger: '.cart__summary',
         totalNumber: `.cart__total-number`,
@@ -56,7 +56,7 @@ export const select = {
         price: '.cart__product-price',
         edit: '[href="#edit"]',
         remove: '[href="#remove"]',
-    }, //CZY TE OBIEKTY BYŁY GDZIEŚ DOSTĘPNE? - END
+    }, 
     booking: {
         peopleAmount: '.people-amount',
         hoursAmount: '.hours-amount',
@@ -82,6 +82,9 @@ export const classNames = {
     pages: {
         active: 'active',
     },
+    cart: {
+      wrapperActive: 'active',
+    },
 };
 
 export const settings = {
@@ -89,6 +92,9 @@ export const settings = {
         defaultValue: 1,
         defaultMin: 1,
         defaultMax: 9,
+    },
+    cart: {
+      defaultDeliveryFee: 20,
     },
     db: {
         url: '//localhost:3131',
@@ -118,3 +124,8 @@ export const templates = {
     cartProduct: Handlebars.compile(document.querySelector(select.templateOf.cartProduct).innerHTML),
     bookingWidget: Handlebars.compile(document.querySelector(select.templateOf.bookingWidget).innerHTML),
 };
+
+
+
+
+
