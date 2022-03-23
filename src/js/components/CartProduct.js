@@ -1,4 +1,6 @@
-
+  import {select} from '../settings.js';
+  import AmountWidget from './AmountWidget.js';
+  
   class CartProduct {
     constructor(menuProduct, element) {
       const thisCartProduct = this;
@@ -7,7 +9,7 @@
       thisCartProduct.priceSingle = menuProduct.priceSingle;
       thisCartProduct.price = menuProduct.price;
       thisCartProduct.amount = menuProduct.amount;
-      
+
       thisCartProduct.getElements(element);
       thisCartProduct.initAmountWidget();
     }
@@ -16,6 +18,10 @@
       const thisCartProduct = this;
       thisCartProduct.dom = {};
       thisCartProduct.dom.wrapper = element;
+      thisCartProduct.dom.amount = element.querySelector(select.cartProduct.amountWidget);
+      thisCartProduct.dom.price = element.querySelector(select.cartProduct.price);
+      thisCartProduct.dom.edit = element.querySelector(select.cartProduct.edit);
+      thisCartProduct.dom.remove = element.querySelector(select.cartProduct.remove);
     }
 
     initActions() {
@@ -23,7 +29,15 @@
     }
 
     initAmountWidget() {
-      //const thisCartProduct = this;
+      const thisCartProduct = this;
+
+      //TUTEJ MUSI BYĆ POZMIENIANE
+      thisCartProduct.amountWidget = new AmountWidget(thisCartProduct.amountWidgetElem);
+      thisCartProduct.amountWidgetElem.addEventListener('updated', function () {
+        thisCartProduct.amount; //ZAKTUALIZUJ
+        thisCartProduct.price; //ZAKTUALIZUJ
+        thisCartProduct.processOrder();
+      });
     }
 
     remove() {
@@ -33,5 +47,5 @@
     getData() {
       //const thisCartProduct = this;
     }
-  } 
-  export default CartProduct; 
+  }
+  export default CartProduct;
