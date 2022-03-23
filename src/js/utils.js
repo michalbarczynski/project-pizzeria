@@ -1,4 +1,4 @@
-/* global Handlebars */
+/* global Handlebars, dataSource */
 
 const utils = {}; // eslint-disable-line no-unused-vars
 
@@ -41,6 +41,7 @@ utils.queryParams = function(params){
     .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
     .join('&');
 };
+
 utils.numberToHour = function(number){
   return (Math.floor(number) % 24) + ':' + (number % 1 * 60 + '').padStart(2, '0');
 };
@@ -61,10 +62,29 @@ utils.addDays = function(dateStr, days){
   return dateObj;
 };
 
+utils.convertDataSourceToDbJson = function(){
+  const productJson = [];
+  for(let key in dataSource.products){
+    productJson.push(Object.assign({id: key}, dataSource.products[key]));
+  }
+
+  console.log(JSON.stringify({product: productJson, order: []}, null, '  '));
+};
+
 Handlebars.registerHelper('ifEquals', function(arg1, arg2, options) {
   return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
 });
+<<<<<<< HEAD
+
+Handlebars.registerHelper('joinValues', function(input, options) {
+  return Object.values(input).join(options.fn(this));
+});
+
+
+export default utils;
+=======
 Handlebars.registerHelper('joinValues', function(input, options) {
   return Object.values(input).join(options.fn(this));
 });
 export default utils;
+>>>>>>> 32b0c2fef7f22bca03ffbd82b6e784932d6c6a52
