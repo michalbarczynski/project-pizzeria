@@ -1,3 +1,6 @@
+/* global Handlebars */
+/* eslint-disable no-unused-vars */
+
 export const select = {
     templateOf: {
         menuProduct: '#template-menu-product',

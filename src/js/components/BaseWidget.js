@@ -40,7 +40,7 @@ class BaseWidget {
 
     renderValue() {
         const thisWidget = this;
-        thisWidget.dom.wrapper.innerHTML = thisWidget.value;
+        thisWidget.dom.wrapper.value = thisWidget.value;
     }
 
     announce() {

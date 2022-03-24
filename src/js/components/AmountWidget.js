@@ -31,7 +31,7 @@ import BaseWidget from './BaseWidget.js';
     initActions() {
       const thisWidget = this;
       thisWidget.dom.input.addEventListener('change', function () {
-        thisWidget.setValue(thisWidget.input.value);
+        thisWidget.value = thisWidget.dom.input.value;
       });
       thisWidget.dom.linkIncrease.addEventListener('click', function (event) {
         event.preventDefault();
