@@ -7,6 +7,7 @@ import BaseWidget from './BaseWidget.js';
       const thisWidget = this;
       thisWidget.getElements(element);
       thisWidget.initActions();
+      thisWidget.setValue();
     }
 
     getElements() {
