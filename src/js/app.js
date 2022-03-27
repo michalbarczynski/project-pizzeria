@@ -85,9 +85,8 @@ const app = {
 
   initBooking: function () {
     const thisApp = this;
-    thisApp.Booking = document.querySelector(select.containerOf.booking);
-
-    console.log(thisApp);
+    const bookingWrapper = document.querySelector(select.containerOf.booking);
+    thisApp.Booking = new Booking(bookingWrapper);
   },
 
   init: function () {

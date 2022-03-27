@@ -44,11 +44,12 @@
       const thisCartProduct = this;
 
       //TUTEJ MUSI BYĆ POZMIENIANE
-      thisCartProduct.amountWidget = new AmountWidget(thisCartProduct.dom);
-      thisCartProduct.amountWidgetElem.addEventListener('updated', function () {
-      thisCartProduct.amount; //ZAKTUALIZUJ
-      thisCartProduct.price ; //ZAKTUALIZUJ
-      thisCartProduct.processOrder();
+      thisCartProduct.amountWidget = new AmountWidget(thisCartProduct.dom);//dom.amount??
+      thisCartProduct.amountWidgetElem.addEventListener('updated', function () { ////dom.amount zamiast amountwidgetelem??
+      thisCartProduct.amount = thisCartProduct.amountWidget.value; 
+      thisCartProduct.price = thisCartProduct.priceSingle * thisCartProduct.amount;
+      thisCartProduct.dom.price.innerHTML = thisCartProduct.price; 
+      thisCartProduct.processOrder(); //jest potrzebne?
       });
     }
 
@@ -71,14 +72,3 @@
     }
   }
   export default CartProduct;
-
-
-  /*
-    Ćwiczenie
-    Zadbaj o to, aby funkcja w nasłuchiwaczu (nasz handler) poprawnie aktualizowała wartość thisCartProduct.amount oraz thisCartProduct.price.
-
-    Powinna również aktualizować kwotę widoczną w samej reprezentacji HTML-a tego produktu. To będzie jednak dość proste zadanie. Na tym etapie cena w thisCartProduct.price będzie już zaktualizowana. Wystarczy więc znaleźć referencję do odpowiedniego elementu w HTML i zaktualizować jego wartość. Przeszukaj w tym celu metodę getElements. Na pewno jest już tam przygotowana odpowiednia referencja.
-
-    HINT:
-    Pamiętaj, że aktualna wartość widgetu (czyli liczby sztuk) jest dostępna pod odpowiednią właściwością thisCartProduct.amountWidget
-  */

@@ -23,7 +23,7 @@ class DatePicker extends BaseWidget{
       locale: {
         firstDayOfWeek: 1
       },
-      disable: [
+      disable: [  
         function(date) {
           return (date.getDay() === 1);
         }
