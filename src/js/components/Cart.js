@@ -1,14 +1,10 @@
 import {
   select,
-  classNames,
-  settings,
-  templates
+  templates,
+  settings
 } from '../settings.js';
 import utils from '../utils.js';
 import CartProduct from './CartProduct.js';
-
-console.log(classNames);
-console.log(settings);
 
 class Cart {
   constructor(element) {
@@ -31,6 +27,9 @@ class Cart {
     thisCart.dom.subtotalPrice = document.querySelector(select.cart.subtotalPrice);
     thisCart.dom.totalPrice = document.querySelector(select.cart.totalPrice);
     thisCart.dom.totalNumber = document.querySelector(select.cart.totalNumber);
+    thisCart.dom.form = document.querySelector(select.cart.form);
+    thisCart.dom.phone = '';
+    thisCart.dom.address = '';
   }
 
   initActions() {
@@ -41,8 +40,12 @@ class Cart {
     thisCart.dom.productList.addEventListener('updated', function () {
       thisCart.update();
     });
-    thisCart.dom.productList.addEventListener('remove', function () {
-      thisCart.remove();
+    thisCart.dom.productList.addEventListener('remove', function (event) {
+      thisCart.remove(event.detail.cartProduct);
+    });
+    thisCart.dom.form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      thisCart.sendOrder();
     });
   }
 
@@ -81,11 +84,50 @@ class Cart {
     thisCart.update();
   }
 
-  //remove(cartProduct) {}
+  remove(cartProduct) {
+    const thisCart = this;
+
+    /* delete cartProduct in HTML */
+    cartProduct.remove();
+
+    /* delete cartProduct from thisCart.products array */
+    const indexOfProduct = thisCart.products.indexOf(cartProduct);
+    thisCart.products.splice(indexOfProduct ,1);
+    thisCart.update();
+  }
 
   sendOrder() {
+    const thisCart = this;
+    const url = settings.db.url + '/' + settings.db.orders;
+    const payload = {
+      address: '',
+      phone: '',
+      totalPrice: '',
+      subtotalPrice: '',
+      totalNumber: '',
+      deliveryFee: '',
+      products: [],
+    };
 
+    for(let prod of thisCart.products) {
+      payload.products.push(prod.getData());
+    }
+    
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    };
+    
+    fetch(url, options);
   }
 }
 
 export default Cart;
+
+/*
+Aby dojść do wartości elementu input, skorzystaj z jego właściwości value.
+Bardzo łatwo możesz dojść do wartości totalPrice. Dlaczego? Gdy pisaliśmy metodę update, to zadbaliśmy o to, aby właśnie ta informacja była zapisana jako właściwość (thisCart.totalPrice). Zrobiliśmy to z myślą o przyszłości. Tak, żeby właśnie w takiej sytuacji jak ta, móc łatwo dojść do tej informacji. totalNumber czy subtotalPrice były już jednak w tamtej funkcji zapisywane tylko jako stałe, a co za tym idzie, dostępne tylko w niej... Może więc warto zmodyfikować tamtą metodę? Tak, aby totalNumber i subtotalPrice były również właściwościami? Wtedy będzie można dojść do ich wartości również poza metodę update. Właśnie np. w sendOrder!
+*/

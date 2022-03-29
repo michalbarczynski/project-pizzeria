@@ -69,6 +69,10 @@
     getData() {
       const thisCartProduct = this;
       console.log(thisCartProduct);
+      
+      /*
+      Zadbaj o to, aby zwracała ona nowy obiekt, z całej instancji thisCartProduct, które naprawdę będą potrzebne w momencie zapisywania zamówienia, a więc id, amount, price, priceSingle, name i params.
+      */
     }
   }
   export default CartProduct;

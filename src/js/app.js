@@ -3,7 +3,6 @@ import Product from './components/Product.js';
 import Cart from './components/Cart.js';
 import Booking from './components/Booking.js';
 
-console.log(Booking);
 
 const app = {
   initPages: function () {
@@ -12,7 +11,6 @@ const app = {
     thisApp.navLinks = document.querySelectorAll(select.nav.links);
     const idFromHash = window.location.hash.replace('#/', '');
     let pageMatchingHash = thisApp.pages[0].id;
-    console.log(pageMatchingHash);
 
     for(let page of thisApp.pages){
       if(page.id == idFromHash){
@@ -21,7 +19,9 @@ const app = {
       }
     }
     
-    thisApp.activatePage(idFromHash);
+    thisApp.activatePage(pageMatchingHash);
+
+  
     //TA PĘTLA PONIŻEJ DO ANALIY
     for(let link of thisApp.navLinks){
       link.addEventListener('click', function(event){
