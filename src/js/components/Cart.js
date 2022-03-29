@@ -84,15 +84,15 @@ class Cart {
     thisCart.update();
   }
 
-  remove(cartProduct) {
+  remove(deletedProduct) {
     const thisCart = this;
 
     /* delete cartProduct in HTML */
-    cartProduct.remove();
+    deletedProduct.dom.wrapper.remove();
 
     /* delete cartProduct from thisCart.products array */
-    const indexOfProduct = thisCart.products.indexOf(cartProduct);
-    thisCart.products.splice(indexOfProduct ,1);
+    const indexOfProduct = thisCart.products.indexOf(deletedProduct);
+    thisCart.products.splice(indexOfProduct, 1);
     thisCart.update();
   }
 

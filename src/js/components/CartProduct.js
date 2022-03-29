@@ -30,20 +30,17 @@
     initActions() {
       const thisCartProduct = this;
       thisCartProduct.dom.edit.addEventListener('click', function() {
-        event.preventDefault();
-        //TUTEJ FUNKCJA
+        //event.preventDefault();
       });
       thisCartProduct.dom.remove.addEventListener('click', function() {
-        event.preventDefault();
+        //event.preventDefault();
         thisCartProduct.remove();
-        //TUTEJ FUNKCJA
       });
     }
 
     initAmountWidget() {
       const thisCartProduct = this;
 
-      //TUTEJ MUSI BYĆ POZMIENIANE
       thisCartProduct.amountWidget = new AmountWidget(thisCartProduct.dom);//dom.amount??
       thisCartProduct.amountWidgetElem.addEventListener('updated', function () { ////dom.amount zamiast amountwidgetelem??
       thisCartProduct.amount = thisCartProduct.amountWidget.value; 
@@ -68,11 +65,15 @@
 
     getData() {
       const thisCartProduct = this;
-      console.log(thisCartProduct);
-      
-      /*
-      Zadbaj o to, aby zwracała ona nowy obiekt, z całej instancji thisCartProduct, które naprawdę będą potrzebne w momencie zapisywania zamówienia, a więc id, amount, price, priceSingle, name i params.
-      */
+
+      return thisCartProduct.dataProduct = {
+        id: '', 
+        amount: '', 
+        price: '', 
+        priceSingle: '',
+        name: '',
+        params: '',
+      };
     }
   }
   export default CartProduct;
