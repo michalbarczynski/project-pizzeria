@@ -24,12 +24,6 @@ class BaseWidget {
         thisWidget.renderValue();
     }
 
-    setValue(value) {
-        const thisWidget = this;
-
-        thisWidget.value = value;
-    }
-
     parseValue(value) {
         return parseInt(value);
     }

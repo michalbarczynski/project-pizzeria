@@ -41,12 +41,11 @@
     initAmountWidget() {
       const thisCartProduct = this;
 
-      thisCartProduct.amountWidget = new AmountWidget(thisCartProduct.dom);//dom.amount??
-      thisCartProduct.amountWidgetElem.addEventListener('updated', function () { ////dom.amount zamiast amountwidgetelem??
+      thisCartProduct.amountWidget = new AmountWidget(thisCartProduct.dom.amount);
+      thisCartProduct.dom.amount.addEventListener('updated', function () { 
       thisCartProduct.amount = thisCartProduct.amountWidget.value; 
       thisCartProduct.price = thisCartProduct.priceSingle * thisCartProduct.amount;
       thisCartProduct.dom.price.innerHTML = thisCartProduct.price; 
-      thisCartProduct.processOrder(); //jest potrzebne?
       });
     }
 
@@ -60,13 +59,10 @@
         }
       });
       thisCartProduct.dom.wrapper.dispatchEvent(event);
-      console.log('remove button clckd!!!!!!11');
     }
 
     getData() {
-      const thisCartProduct = this;
-
-      return thisCartProduct.dataProduct = {
+      return {
         id: '', 
         amount: '', 
         price: '', 

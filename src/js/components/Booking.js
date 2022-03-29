@@ -38,19 +38,19 @@ class Booking {
         const endDateParam = settings.db.dateEndParamKey + '=' + utils.dateToStr(thisBooking.datePicker.maxDate);
 
         const params = {
-            booking: [startDateParam, endDateParam],
+            bookings: [startDateParam, endDateParam],
             eventsCurrent: [settings.db.notRepeatParam, startDateParam, endDateParam],
             eventsRepeat: [settings.db.repeatParam, endDateParam],
         };
 
         const urls = {
-            booking: settings.db.url + '/' + settings.db.booking + '?' + params.booking.join('&'),
-            eventsCurrent: settings.db.url + '/' + settings.db.event + '?' + params.eventsCurrent.join('&'),
-            eventsRepeat: settings.db.url + '/' + settings.db.event + '?' + params.eventsRepeat.join('&'),
+            bookings: settings.db.url + '/' + settings.db.bookings + '?' + params.bookings.join('&'),
+            eventsCurrent: settings.db.url + '/' + settings.db.events + '?' + params.eventsCurrent.join('&'),
+            eventsRepeat: settings.db.url + '/' + settings.db.events + '?' + params.eventsRepeat.join('&'),
         };
 
         Promise.all([
-                fetch(urls.booking),
+                fetch(urls.bookings),
                 fetch(urls.eventsCurrent),
                 fetch(urls.eventsRepeat),
             ])
@@ -94,10 +94,10 @@ class Booking {
 
         const startHour = utils.hourToNumber(hour);
         for (let hourBlock = startHour; hourBlock < startHour + duration; hourBlock += 0.5) {
-            if (typeof thisBooking.booked[date][startHour] == 'undefined') {
-                thisBooking.booked[date][startHour] = [];
+            if (typeof thisBooking.booked[date][hourBlock] == 'undefined') {
+                thisBooking.booked[date][hourBlock] = [];
             }
-            thisBooking.booked[date][hour].push(table);
+            thisBooking.booked[date][hourBlock].push(table);
         }
     }
 }

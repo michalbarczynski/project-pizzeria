@@ -7,7 +7,7 @@ import BaseWidget from './BaseWidget.js';
       const thisWidget = this;
       thisWidget.getElements(element);
       thisWidget.initActions();
-      thisWidget.setValue();
+      thisWidget.value = thisWidget.dom.input.value; //TA LINIA SIĘ POWTARZA PONIŻEJ DWUKROTNIE
     }
 
     getElements() {
@@ -36,11 +36,11 @@ import BaseWidget from './BaseWidget.js';
       });
       thisWidget.dom.linkIncrease.addEventListener('click', function (event) {
         event.preventDefault();
-        thisWidget.setValue(thisWidget.value + 1);
+        thisWidget.value += 1;
       });
       thisWidget.dom.linkDecrease.addEventListener('click', function (event) {
         event.preventDefault();
-        thisWidget.setValue(thisWidget.value - 1);
+        thisWidget.value -= 1;
       });
     }
   }
