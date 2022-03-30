@@ -28,8 +28,8 @@ class Cart {
     thisCart.dom.totalPrice = document.querySelectorAll(select.cart.totalPrice);
     thisCart.dom.totalNumber = document.querySelector(select.cart.totalNumber);
     thisCart.dom.form = document.querySelector(select.cart.form);
-    thisCart.dom.phone = '';
-    thisCart.dom.address = '';
+    thisCart.dom.phone = document.querySelector(select.cart.phone);
+    thisCart.dom.address = document.querySelector(select.cart.address);
   }
 
   initActions() {
@@ -89,11 +89,7 @@ class Cart {
 
   remove(deletedProduct) {
     const thisCart = this;
-
-    /* delete cartProduct in HTML */
     deletedProduct.dom.wrapper.remove();
-
-    /* delete cartProduct from thisCart.products array */
     const indexOfProduct = thisCart.products.indexOf(deletedProduct);
     thisCart.products.splice(indexOfProduct, 1);
     thisCart.update();
@@ -103,12 +99,12 @@ class Cart {
     const thisCart = this;
     const url = settings.db.url + '/' + settings.db.orders;
     const payload = {
-      address: '',
-      phone: '',
-      totalPrice: '',
-      subtotalPrice: '',
-      totalNumber: '',
-      deliveryFee: '',
+      address: thisCart.dom.address.value,
+      phone: thisCart.dom.phone.value,
+      totalPrice: thisCart.dom.totalPrice.value,
+      subtotalPrice: thisCart.dom.subtotalPrice.value,
+      totalNumber: thisCart.dom.totalNumber,
+      deliveryFee:thisCart.dom.deliveryFee,
       products: [],
     };
 
@@ -124,7 +120,12 @@ class Cart {
       body: JSON.stringify(payload),
     };
 
-    fetch(url, options);
+    fetch(url, options)
+    .then(function(response){
+      return response.json();
+    }).then(function(parsedResponse){
+      console.log('parsedResponse', parsedResponse);
+    });
   }
 }
 

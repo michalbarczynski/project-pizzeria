@@ -30,10 +30,8 @@
     initActions() {
       const thisCartProduct = this;
       thisCartProduct.dom.edit.addEventListener('click', function() {
-        //event.preventDefault();
       });
       thisCartProduct.dom.remove.addEventListener('click', function() {
-        //event.preventDefault();
         thisCartProduct.remove();
       });
     }
@@ -62,13 +60,14 @@
     }
 
     getData() {
+      const thisCartProduct = this;
       return {
-        id: '', 
-        amount: '', 
-        price: '', 
-        priceSingle: '',
-        name: '',
-        params: '',
+        id: thisCartProduct.id, 
+        amount: thisCartProduct.amount,
+        price: thisCartProduct.price,
+        priceSingle: thisCartProduct.priceSingle,
+        name: thisCartProduct.name,
+        params: thisCartProduct.params,
       };
     }
   }

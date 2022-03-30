@@ -75,9 +75,7 @@ const app = {
         return rawResponse.json();
       })
       .then(function (parsedResponse) {
-        /* save parsedResponse as thisApp.data.products */
         thisApp.data.products = parsedResponse;
-        /*execute initMenu method */
         return thisApp.initMenu();
       });
     thisApp.data = {};
