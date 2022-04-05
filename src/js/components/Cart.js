@@ -125,14 +125,8 @@ class Cart {
       return response.json();
     }).then(function(parsedResponse){
       console.log('parsedResponse', parsedResponse);
-      console.log('działa');
     });
   }
 }
 
 export default Cart;
-
-/*
-Aby dojść do wartości elementu input, skorzystaj z jego właściwości value.
-Bardzo łatwo możesz dojść do wartości totalPrice. Dlaczego? Gdy pisaliśmy metodę update, to zadbaliśmy o to, aby właśnie ta informacja była zapisana jako właściwość (thisCart.totalPrice). Zrobiliśmy to z myślą o przyszłości. Tak, żeby właśnie w takiej sytuacji jak ta, móc łatwo dojść do tej informacji. totalNumber czy subtotalPrice były już jednak w tamtej funkcji zapisywane tylko jako stałe, a co za tym idzie, dostępne tylko w niej... Może więc warto zmodyfikować tamtą metodę? Tak, aby totalNumber i subtotalPrice były również właściwościami? Wtedy będzie można dojść do ich wartości również poza metodę update. Właśnie np. w sendOrder!
-*/
