@@ -75,7 +75,6 @@ class Cart {
     }
   }
 
-  //W BLOKACH POSZCZEGÓLNYCH LOOPÓW TRZEBA ZMIENIĆ LET NA CONST
   add(menuProduct) {
     const thisCart = this;
     const generatedHTML = templates.cartProduct(menuProduct);
@@ -87,7 +86,7 @@ class Cart {
     thisCart.update();
   }
 
-  remove(deletedProduct) {
+  remove(deletedProduct) {  
     const thisCart = this;
     deletedProduct.dom.wrapper.remove();
     const indexOfProduct = thisCart.products.indexOf(deletedProduct);

@@ -21,17 +21,21 @@ class Booking {
     render(element) {
         const thisBooking = this;
         const generatedHTML = templates.bookingWidget();
+
         thisBooking.dom = {};
         thisBooking.dom.wrapper = element;
         thisBooking.dom.wrapper.innerHTML = generatedHTML;
+
         thisBooking.dom.peopleAmount = document.querySelector(select.booking.peopleAmount);
         thisBooking.dom.hourAmount = document.querySelector(select.booking.hoursAmount);
         thisBooking.dom.datePicker = document.querySelector(select.widgets.datePicker.wrapper);
         thisBooking.dom.hourPicker = document.querySelector(select.widgets.hourPicker.wrapper);
-        thisBooking.dom.tables = document.querySelectorAll(select.booking.tables);
+        thisBooking.dom.table = document.querySelector(select.booking.table);
+        thisBooking.dom.floorPlan = document.querySelector(select.booking.floorPlan);
         thisBooking.dom.address = document.querySelector(select.booking.address);
         thisBooking.dom.phone = document.querySelector(select.booking.phone);
         thisBooking.dom.tableSelected = document.querySelector(select.booking.tableSelected);
+        thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.allTables);
     }
 
     initWidgets() {
@@ -42,8 +46,9 @@ class Booking {
         thisBooking.hourPicker = new HourPicker(thisBooking.dom.hourPicker);
         thisBooking.dom.wrapper.addEventListener('updated', function () {
             thisBooking.updateDOM();
+            thisBooking.initTables();
         });
-        thisBooking.dom.tables.addEventListener('click', function () {
+        thisBooking.dom.floorPlan.addEventListener('click', function () {
             thisBooking.initTables();
         });
     }
@@ -154,19 +159,17 @@ class Booking {
     initTables(event) {
         const thisBooking = this;
         const clickedTable = event.target;
-        if (clickedTable.contains('.table') && clickedTable.contains(thisBooking.tableSelected)) {
-            console.log('table is reserved');
+
+        if (clickedTable.classList.contains(select.booking.table) && clickedTable.classList.contains(classNames.booking.tableSelected) || clickedTable.classList.contains(classNames.booking.tableBooked)) { 
+            alert('table is reserved; please choose another one');
         } else {
-            clickedTable.classList.add();
+            clickedTable.classList.toggle(classNames.booking.tableSelected);
         }
-        /*
-        Metoda ta powinna sprawdzać, czy kliknięto faktycznie na stolik. 
-        Jeśli tak, to powinna sprawdzać, czy stolik jest wolny. 
-        
-        Jeśli nie, to może pokazywać np. alert z komunikatem o zajętości stolika. 
-        
-        Jeśli jednak jest wolny, to należy przypisać numer tego stolika do właściwości, którą wcześniej przygotowaliśmy w konstruktorze, tak aby cała aplikacja miała dostęp do tej informacji. Należy również dodać do tego stolika klasę selected.
-        */
+        for (let table of thisBooking.dom.tables) {
+            if (table !== clickedTable) {
+                table.classList.remove(classNames.booking.tableSelected);
+            }
+        }
     }
 
     sendBooking() {
@@ -174,13 +177,13 @@ class Booking {
         const url = settings.db.url + '/' + settings.db.bookings;
         const payload = {
             date: thisBooking.datePicker.value,
-            hour: thisBooking.hourPicker.value, 
+            hour: thisBooking.hourPicker.value,
             table: thisBooking.tables,
             duration: thisBooking.hourPicker,
             ppl: thisBooking.peopleAmount,
             starters: [],
             phone: thisBooking.phone.value,
-            address: thisBooking.address.value, 
+            address: thisBooking.address.value,
         };
 
 
@@ -218,5 +221,4 @@ To, co Ci pozostało, to już tylko poniższe funkcjonalności:
 wybór stolika powinien być resetowany przy zmianie godziny, daty, liczby gości oraz liczby godzin,
 kliknięcie na zaznaczony już stolik po raz kolejny, powinno również resetować wybór zapisany w JS oraz zabierać klasę "wyboru".
 
-Tak naprawdę pobieranie danych to tylko jeden etap przygotowania thisBooking.booked. Zauważ, że gdy są one już pobrane, to rezerwacje są dodawane jedna po jednej, za pomocą funkcji makeBooked. Wystarczy więc, że za pomocą tej samej funkcji, w przypadku sukcesu naszego requestu do serwera, będziemy dodawać do thisBooking.booked również naszą nową rezerwację!
 */
