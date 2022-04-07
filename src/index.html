@@ -65,7 +65,7 @@
       </div>
     </div>
   </header>
-<!-- * * * * * * * TUTEJ DODAĆ * * * * * * *-->
+
   <div id="pages">
     <section id="order">
       <div id="product-list" class="product-list container"></div>
@@ -73,8 +73,11 @@
     <section id="booking">
       <div class="booking-wrapper container"></div>
     </section>
+    <section id="home">
+      <div class="home-wrapper container"></div>
+    </section>
   </div>
-<!-- * * * * * * *I TUTEJ DODAĆ * * * * * * *-->
+
   <script id="template-cart-product" type="text/x-handlebars-template">
     <li>
       <div class="widget-amount"> <!-- widget-amount -->
@@ -102,6 +105,65 @@
       </ul>
     </li>
   </script>
+
+
+  <script id="template-home" type="text/x-handlebars-template">
+    <!--choosing subpage-->
+    <section class="change_subpage">
+        <div class="order">
+          <a href="">
+            <img src="" alt="grey_image">
+            <div class="text_wrapper">
+              <h1 class="subpage_header">ORDER ONLINE</h1>
+              <p class="subpage_caption">opis animowany</p>
+            </div>
+          </a>
+        </div>
+        <div class="book_table">
+          <a href="">
+            <img src="" alt="grey_image">
+            <div class="text_wrapper">
+            <h1 class="subpage_header">BOOK A TABLE</h1>
+            <p class="subpage_caption">opis animowany</p>
+          </div>
+        </a>
+        </div>
+        <div class="opening_hours">
+          <h1 class="subpage_header">OPENING HOURS</h1>
+          <p class="subpage_caption">MOUN-SUN, 12PM-11PM</p>
+      </div>
+    </section>
+        <!--marketing carousel-->
+    <section class="carousel">
+      <div class="carousel-item">
+        <img src="" alt="image">
+        <div class="carousel-capion">
+          
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="" alt="image">
+        <div class="carousel-capion">
+
+      </div>
+      <div class="carousel-item">
+        <img src="" alt="image">
+        <div class="carousel-capion">
+          
+      </div>
+    </section>
+        <!--dishes gallery-->
+    <section class="gallery">
+      <div class="gellery-item"></div>
+      <div class="gellery-item"></div>
+      <div class="gellery-item"></div>
+      <div class="gellery-item"></div>
+      <div class="gellery-item"></div>
+    </section>
+  </script>
+
+
+
 
   <script id="template-menu-product" type="text/x-handlebars-template">
     <article class="product"> <!-- product -->

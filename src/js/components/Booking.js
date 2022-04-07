@@ -4,7 +4,7 @@ import {
     select,
     classNames
 } from '../settings.js';
-import utils from '../utils.js';
+import utils from '../utils.js';    
 import DatePicker from './DatePicker.js';
 import HourPicker from './HourPicker.js';
 import AmountWidget from './AmountWidget.js';
@@ -210,15 +210,3 @@ class Booking {
 
 
 export default Booking;
-
-/*
-Pamiętaj przy tym, że zanim dodasz do wybranego stolika klasę selected, to należy sprawdzić, czy czasem inny stolik już takiej nie ma. I jeśli ma, to mu ją zabrać. Samej właściwości nie musimy jednak wcześniej zerować, bo przecież i tak za moment nadpiszemy ją numerkiem nowego stolika. Musimy więc zadbać tylko o zabranie klasy staremu stolikowi, samą właściwością się nie martw.
-
-To już naprawdę dużo. Od tej chwili kliknięcie na stolik zajęty, powinno pokazywać od razu alert z informacją o zajętości. Kliknięcie na wolny stolik powinno powodować zmianę jego wyglądu i, co ważniejsze, przypisywać do jakiejś właściwości w Booking informacje o numerze tego wybranego stolika. Co więcej, jeśli w momencie wyboru nowego stoliku, inny był już wybrany wcześniej, to ten wcześniejszy powinien wrócić wyglądem do normalności, czyli stracić klasę selected.
-
-To, co Ci pozostało, to już tylko poniższe funkcjonalności:
-
-wybór stolika powinien być resetowany przy zmianie godziny, daty, liczby gości oraz liczby godzin,
-kliknięcie na zaznaczony już stolik po raz kolejny, powinno również resetować wybór zapisany w JS oraz zabierać klasę "wyboru".
-
-*/
