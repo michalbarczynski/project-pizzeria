@@ -31,11 +31,11 @@ class Booking {
         thisBooking.dom.datePicker = document.querySelector(select.widgets.datePicker.wrapper);
         thisBooking.dom.hourPicker = document.querySelector(select.widgets.hourPicker.wrapper);
         thisBooking.dom.table = document.querySelector(select.booking.table);
-        thisBooking.dom.floorPlan = document.querySelector(select.booking.floorPlan);
+        thisBooking.dom.floorPlan = thisBooking.dom.wrapper.querySelector(select.booking.floorPlan); //dom.wrapper
+        thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.allTables);
+        thisBooking.dom.tableSelected = document.querySelector(select.booking.tableSelected);
         thisBooking.dom.address = document.querySelector(select.booking.address);
         thisBooking.dom.phone = document.querySelector(select.booking.phone);
-        thisBooking.dom.tableSelected = document.querySelector(select.booking.tableSelected);
-        thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.allTables);
     }
 
     initWidgets() {
@@ -155,21 +155,17 @@ class Booking {
             thisBooking.booked[date][hourBlock].push(table);
         }
     }
-
     initTables(event) {
         const thisBooking = this;
         const clickedTable = event.target;
+        let tableID = clickedTable.getAttribute(settings.booking.tableIdAttribute);
 
-        if (clickedTable.classList.contains(select.booking.table) && clickedTable.classList.contains(classNames.booking.tableSelected) || clickedTable.classList.contains(classNames.booking.tableBooked)) { 
+        if (clickedTable.classList.contains('table') && clickedTable.classList.contains(classNames.booking.tableBooked)) {
             alert('table is reserved; please choose another one');
-        } else {
+        } else if (!clickedTable.classList.contains(classNames.booking.tableSelected)) {
             clickedTable.classList.toggle(classNames.booking.tableSelected);
         }
-        for (let table of thisBooking.dom.tables) {
-            if (table !== clickedTable) {
-                table.classList.remove(classNames.booking.tableSelected);
-            }
-        }
+        thisBooking.tableNumber = tableID;
     }
 
     sendBooking() {
