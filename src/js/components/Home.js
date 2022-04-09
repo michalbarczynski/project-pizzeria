@@ -14,7 +14,6 @@ class Home {
         thisHomePage.dom = {};
         thisHomePage.dom.wrapper = element;
         thisHomePage.dom.wrapper.innerHTML = generatedHTML;
-
     }
 
     initWidgets() {

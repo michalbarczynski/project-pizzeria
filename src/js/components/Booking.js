@@ -4,7 +4,7 @@ import {
     select,
     classNames
 } from '../settings.js';
-import utils from '../utils.js';    
+import utils from '../utils.js';
 import DatePicker from './DatePicker.js';
 import HourPicker from './HourPicker.js';
 import AmountWidget from './AmountWidget.js';
@@ -155,6 +155,7 @@ class Booking {
             thisBooking.booked[date][hourBlock].push(table);
         }
     }
+
     initTables(event) {
         const thisBooking = this;
         const clickedTable = event.target;
@@ -166,6 +167,12 @@ class Booking {
             clickedTable.classList.toggle(classNames.booking.tableSelected);
         }
         thisBooking.tableNumber = tableID;
+
+        for (let table of thisBooking.dom.tables) {
+            if (table !== tableID) {
+                table.classList.remove(classNames.booking.tableSelected);
+            }
+        }
     }
 
     sendBooking() {
@@ -206,3 +213,8 @@ class Booking {
 
 
 export default Booking;
+
+/*
+Komentarz mentora:
+ thisBooking.dom.tables jest kolekcją elementów, więc musisz w pętli dodać każdemu stolikowi listener. Lub rodzicowi, w tedy bazujesz na target, ale w tedy pobierz wrapper tych stolików.
+*/
