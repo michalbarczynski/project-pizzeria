@@ -1,5 +1,118 @@
-// carousel
+// nav-boxes
+.change_subpage {
+    padding-top: 40px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
 
-//
+.wrapper {
+    position: relative;
+    display: inline-block;
+
+    a img {
+        width: 80%;
+        height: 100px;
+        //object-fit: cover;
+        border-radius: $radius;
+    }
+}
+
+.text_wrapper {
+
+    p {
+        opacity: 0;
+        font-size: 12px;
+        transform: translateY(-0%, -70%);
+    }
+
+    h1 {
+        opacity: 1;
+        top: 40%;
+        transform: translateX(0%, 30%);
+    }
+
+    p:hover {
+        opacity: 1;
+        transition-duration: 1s;
+        /*transition-delay: ;
+        transition-property: ;
+        transition-timing-function: ;
+        transition-delay: ;*/
+    }
+
+    h1:hover {
+        opacity: 0.8;
+        transform: translateZ(00%, 70%);
+        font-family: $font-text;
+    }
+}
+
+.opening_hours {
+
+}
+
+// carousel
+.flickity-button:disabled {
+    display: none;
+}
+
+.flickity-prev-next-button {
+    opacity: 50; //powinno być zero zbcm co sb stanie
+}
+
+.main-carousel {
+
+}
+
+.carosuel-item {
+
+}
+
+.carousel-image {
+    img {
+
+    }
+}
+
+.carousel-caption {
+    h3 {
+
+    }
+
+    p {
+
+    }
+
+    span {
+
+    }
+}
 
 // gallery
+
+.gallery {     //to jest section a nie div
+
+}
+
+.gallery-item {
+    img {
+
+    }
+    
+    i {
+
+    }
+
+    i:hover { //ew użyć nest
+
+    }
+
+    img {
+
+    }
+}
+
+.icons {
+
+}

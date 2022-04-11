@@ -70,6 +70,8 @@ export const select = {
         floorPlan: '.floor-plan ',
         address: '.order-confirmation .address',
         phone: '.order-confirmation .phone',
+        button: '.order-confirmation [type="submit"]',
+        starters: '.checkbox [type="checkbox"]',
     },
     nav: {
         links: '.main-nav a',

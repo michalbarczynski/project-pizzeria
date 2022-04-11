@@ -23,7 +23,6 @@ const app = {
     thisApp.activatePage(pageMatchingHash);
 
   
-    //TA PĘTLA PONIŻEJ DO ANALIY
     for(let link of thisApp.navLinks){
       link.addEventListener('click', function(event){
         const clickedElement = this;

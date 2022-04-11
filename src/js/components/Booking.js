@@ -36,6 +36,7 @@ class Booking {
         thisBooking.dom.tableSelected = document.querySelector(select.booking.tableSelected);
         thisBooking.dom.address = document.querySelector(select.booking.address);
         thisBooking.dom.phone = document.querySelector(select.booking.phone);
+        thisBooking.dom.button = document.querySelector(select.booking.button);
     }
 
     initWidgets() {
@@ -44,12 +45,16 @@ class Booking {
         thisBooking.hourAmount = new AmountWidget(thisBooking.dom.hourAmount);
         thisBooking.datePicker = new DatePicker(thisBooking.dom.datePicker);
         thisBooking.hourPicker = new HourPicker(thisBooking.dom.hourPicker);
-        thisBooking.dom.wrapper.addEventListener('updated', function () {
+        thisBooking.dom.wrapper.addEventListener('updated', function (event) {
             thisBooking.updateDOM();
-            thisBooking.initTables();
+            thisBooking.initTables(event);
         });
-        thisBooking.dom.floorPlan.addEventListener('click', function () {
-            thisBooking.initTables();
+        thisBooking.dom.floorPlan.addEventListener('click', function (event) {
+            thisBooking.initTables(event);
+        });
+        thisBooking.dom.button.addEventListener('submit', function (event) {
+            event.preventDefault();
+            thisBooking.sendBooking();
         });
     }
 
@@ -155,26 +160,36 @@ class Booking {
             thisBooking.booked[date][hourBlock].push(table);
         }
     }
+    
+    clearSelected(tableID) {
+        const thisBooking = this;
+        for (let table of thisBooking.dom.tables) {
+            if (table.getAttribute(settings.booking.tableIdAttribute) !== tableID) {
+                table.classList.remove(classNames.booking.tableSelected);
+            }
+        }
+        thisBooking.tableNumber = null;
+    }
 
     initTables(event) {
         const thisBooking = this;
         const clickedTable = event.target;
         let tableID = clickedTable.getAttribute(settings.booking.tableIdAttribute);
+        console.log(clickedTable);
 
-        if (clickedTable.classList.contains('table') && clickedTable.classList.contains(classNames.booking.tableBooked)) {
+        if (clickedTable.classList.contains('table')) {
+            if (clickedTable.classList.contains(classNames.booking.tableBooked))
             alert('table is reserved; please choose another one');
-        } else if (!clickedTable.classList.contains(classNames.booking.tableSelected)) {
-            clickedTable.classList.toggle(classNames.booking.tableSelected);
-        }
-        thisBooking.tableNumber = tableID;
+            } else  {
+                thisBooking.clearSelected(tableID);
 
-        for (let table of thisBooking.dom.tables) {
-            if (table !== tableID) {
-                table.classList.remove(classNames.booking.tableSelected);
+                if (!clickedTable.classList.contains(classNames.booking.tableSelected)) {
+                    thisBooking.tableNumber = tableID;
+                }
+                clickedTable.classList.toggle(classNames.booking.tableSelected);
             }
         }
-    }
-
+       
     sendBooking() {
         const thisBooking = this;
         const url = settings.db.url + '/' + settings.db.bookings;
@@ -189,9 +204,9 @@ class Booking {
             address: thisBooking.address.value,
         };
 
-
-        for (let starter of thisBooking.payload) {
-            payload.starters.push(starter.getData());
+        for (let starter of thisBooking.dom.starters) {
+            if(starter.checked)
+            payload.starters.push(starter.value);
         }
 
         const options = {
@@ -205,16 +220,20 @@ class Booking {
         fetch(url, options)
             .then(function (response) {
                 return response.json();
-            }).then(function (parsedResponse) {
+            })
+            .then(function (parsedResponse) {
                 console.log('parsedResponse', parsedResponse);
+                thisBooking.clearSelected();
+            })
+            .then(function () {
+                thisBooking.makeBooked(payload.date, payload.hour, payload.duration, payload.table);
             });
     }
 }
 
-
 export default Booking;
 
 /*
-Komentarz mentora:
- thisBooking.dom.tables jest kolekcją elementów, więc musisz w pętli dodać każdemu stolikowi listener. Lub rodzicowi, w tedy bazujesz na target, ale w tedy pobierz wrapper tych stolików.
+Zadbanie o to, aby próba wysyłki formularza, kończyła się włączeniem funkcji sendBooking.
+Przygotowanie funkcji sendBooking, która wyśle pod adres localhost:3131/bookings obiekt o następującej strukturze:
 */
