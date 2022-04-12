@@ -37,6 +37,7 @@ class Booking {
         thisBooking.dom.address = document.querySelector(select.booking.address);
         thisBooking.dom.phone = document.querySelector(select.booking.phone);
         thisBooking.dom.button = document.querySelector(select.booking.button);
+        thisBooking.dom.starters = document.querySelectorAll(select.booking.starters);
     }
 
     initWidgets() {
@@ -175,21 +176,20 @@ class Booking {
         const thisBooking = this;
         const clickedTable = event.target;
         let tableID = clickedTable.getAttribute(settings.booking.tableIdAttribute);
-        console.log(clickedTable);
-
+      
         if (clickedTable.classList.contains('table')) {
-            if (clickedTable.classList.contains(classNames.booking.tableBooked))
-            alert('table is reserved; please choose another one');
-            } else  {
-                thisBooking.clearSelected(tableID);
-
-                if (!clickedTable.classList.contains(classNames.booking.tableSelected)) {
-                    thisBooking.tableNumber = tableID;
-                }
-                clickedTable.classList.toggle(classNames.booking.tableSelected);
+            if (clickedTable.classList.contains(classNames.booking.tableBooked)) {
+                alert('table is reserved; please choose another one');
+            } else {
+            if (!clickedTable.classList.contains(classNames.booking.tableSelected)) {
+                thisBooking.tableNumber = tableID; 
+            }
+            thisBooking.clearSelected(tableID);
+            clickedTable.classList.toggle(classNames.booking.tableSelected);
             }
         }
-       
+    }
+
     sendBooking() {
         const thisBooking = this;
         const url = settings.db.url + '/' + settings.db.bookings;
@@ -200,8 +200,8 @@ class Booking {
             duration: thisBooking.hourPicker,
             ppl: thisBooking.peopleAmount,
             starters: [],
-            phone: thisBooking.phone.value,
-            address: thisBooking.address.value,
+            phone: thisBooking.dom.phone.value,
+            address: thisBooking.dom.address.value,
         };
 
         for (let starter of thisBooking.dom.starters) {
@@ -223,7 +223,7 @@ class Booking {
             })
             .then(function (parsedResponse) {
                 console.log('parsedResponse', parsedResponse);
-                thisBooking.clearSelected();
+                //thisBooking.clearSelected();
             })
             .then(function () {
                 thisBooking.makeBooked(payload.date, payload.hour, payload.duration, payload.table);
