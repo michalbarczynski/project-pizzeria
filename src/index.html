@@ -106,128 +106,137 @@
     </li>
   </script>
 
-
-  <script id="template-home" type="text/x-handlebars-template">
-    <!--choosing subpage-->
-    <div class="change_subpage">
-        <div class="order wrapper">
-          <a href="#order">
-            <img src="assets/pizza-1.jpg" alt="grey_image">
-            <div class="text_wrapper">
-              <h1 class="subpage_header">ORDER ONLINE</h1>
-              <p class="subpage_caption">opis animowany</p>
+  <section class="home-widget">
+    <script id="template-home" type="text/x-handlebars-template">
+      <!--choosing subpage-->
+      <div class="change_subpage">
+          <div class="order wrapper">
+            <a class="link" href="#order">
+              <img src="assets/pizza-1.jpg" alt="grey_image" class="subpage_background">
+              <div class="text_wrapper">
+                <h1 class="subpage_header">ORDER ONLINE</h1>
+                <p class="subpage_caption">Order delicious food</p>
+              </div>
+            </a>
+          </div>
+          <div class="book_table wrapper">
+            <a class="link" href="#booking">
+              <img src="assets/pizza-2.jpg" alt="grey_image" class="subpage_background">
+              <div class="text_wrapper">
+                <h1 class="subpage_header">BOOK A TABLE</h1>
+                <p class="subpage_caption">Book your table online</p>
             </div>
           </a>
-        </div>
-        <div class="book_table wrapper">
-          <a href="#booking">
-            <img src="assets/pizza-2.jpg" alt="grey_image">
-            <div class="text_wrapper">
-            <h1 class="subpage_header">BOOK A TABLE</h1>
-            <p class="subpage_caption">opis animowany</p>
           </div>
-        </a>
         </div>
-        <div class="opening_hours">
-          <h1 class="subpage_header">OPENING HOURS</h1>
-          <p class="subpage_caption">MOUN-SUN, 12PM-11PM</p>
+          <div class="opening_hours">
+            <h1 class="subpage_header">OPENING HOURS</h1>
+            <p class="subpage_caption">MOUN-SUN, 12PM-11PM</p>
+        </div>
+
+          <!--marketing carousel-->
+        <div class="main-carousel" data-flickity='{ "autoPlay": true }'>
+          <div class="carousel-cell">
+            <div class="cell-image">
+              <img src="assets/pizza-3.jpg" alt="grey_image">
+            </div>
+            <div class="cell-text">
+              <h3>Great venues, better than my AlpenGold ads :)</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Aliquam varius risus nec lectus dictum ultricies quis id felis.
+                Curabitur lacinia mi ac odio placerat bibendum.
+              </p>
+              <span>~Adam Małysz</span>
+            </div>
+          </div>
+          <div class="carousel-cell">
+            <div class="cell-image">
+              <img src="assets/pizza-3.jpg" alt="grey_image">
+            </div>
+            <div class="cell-text">
+              <h3>Services better than in whole European Union</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Aliquam varius risus nec lectus dictum ultricies quis id felis.
+                Curabitur lacinia mi ac odio placerat bibendum.
+              </p>
+              <span>~Janusz Korwin-Mikke</span>
+            </div>
+          </div>
+          <div class="carousel-cell">
+            <div class="cell-image">
+              <img src="assets/pizza-3.jpg" alt="grey_image">
+            </div>
+            <div class="cell-text">
+              <h3>Good calories, perfect after-training snacks</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Aliquam varius risus nec lectus dictum ultricies quis id felis.
+                Curabitur lacinia mi ac odio placerat bibendum.
+              </p>
+              <span>~Mariusz Pudzianowski</span>
+            </div>
+          </div>
+    
+          <div class="carousel-cell">\
+            <div class="cell-image">
+              <img src="assets/pizza-3.jpg" alt="grey_image">
+            </div>
+            <div class="cell-text">
+              <h3>Delicios Creamcakes</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Aliquam varius risus nec lectus dictum ultricies quis id felis.
+                Curabitur lacinia mi ac odio placerat bibendum.
+              </p>
+              <span>~Karol Wojtyła</span>
+            </div>
+          </div>
+        </div>
+          <!--dishes gallery-->
+      <div class="gallery">
+        <div class="gellery-item">
+          <img src="assets/pizza-4.jpg" alt="image" class="gallery-image">
+          <div class="icons">
+            <a href="#"><i class="fas fa-heart"></i></a>
+            <a href="#"><i class="fas fa-share-alt"></i></a>
+          </div>
+        </div>
+        <div class="gellery-item">
+          <img src="assets/pizza-5.jpg" alt="image" class="gallery-image">
+          <div class="icons">
+            <a href="#"><i class="fas fa-heart"></i></a>
+            <a href="#"><i class="fas fa-share-alt"></i></a>
+          </div>
+        </div>
+        <div class="gellery-item">
+          <img src="assets/pizza-6.jpg" alt="image" class="gallery-image">
+          <div class="icons">
+            <a href="#"><i class="fas fa-heart"></i></a>
+            <a href="#"><i class="fas fa-share-alt"></i></a>
+          </div>
+        </div>
+        <div class="gellery-item">
+          <img src="assets/pizza-7.jpg" alt="image" class="gallery-image">
+          <div class="icons">
+            <a href="#"><i class="fas fa-heart"></i></a>
+            <a href="#"><i class="fas fa-share-alt"></i></a>
+          </div>
+        </div>
+        <div class="gellery-item">
+          <img src="assets/pizza-8.jpg" alt="image" class="gallery-image">
+          <div class="icons">
+            <a href="#"><i class="fas fa-heart"></i></a>
+            <a href="#"><i class="fas fa-share-alt"></i></a>
+          </div>
+        </div>
+        <div class="gellery-item">
+          <img src="assets/pizza-9.jpg" alt="image" class="gallery-image">
+          <div class="icons">
+            <a href="#"><i class="fas fa-heart"></i></a>
+            <a href="#"><i class="fas fa-share-alt"></i></a>
+          </div>
+        </div>
       </div>
-    </div>
-        <!--marketing carousel-->
-      <div class="main-carousel" data-flickity='{ "autoPlay": true }'>
-        <div class="carousel-item">
-          <div class="carousel-image">
-            <img src="assets/pizza-3.jpg" alt="grey_image">
-          </div>
-          <div class="carousel-capion">
-            <h3>Great venue</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Aliquam varius risus nec lectus dictum ultricies quis id felis.
-              Curabitur lacinia mi ac odio placerat bibendum.
-              Etiam sed placerat ex.</p>
-            <span>~Adam Małysz</span>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <div class="carousel-image">
-            <img src="assets/pizza-3.jpg" alt="grey_image">
-          </div>
-          <div class="carousel-capion">
-            <h3>Best services</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Aliquam varius risus nec lectus dictum ultricies quis id felis.
-              Curabitur lacinia mi ac odio placerat bibendum.
-              Etiam sed placerat ex.</p>
-            <span>~Janusz Korwin-Mikke</span>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <div class="carousel-image">
-            <img src="assets/pizza-3.jpg" alt="grey_image">
-          </div>_image">
-          <div class="carousel-capion">
-            <h3>Good snacks</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Aliquam varius risus nec lectus dictum ultricies quis id felis.
-              Curabitur lacinia mi ac odio placerat bibendum.
-              Etiam sed placerat ex.</p>
-            <span>~Mariusz Pudzianowski</span>
-          </div>
-        </div>
-  
-        <div class="carousel-item">\
-          <div class="carousel-image">
-            <img src="assets/pizza-3.jpg" alt="grey_image">
-          </div>
-          <div class="carousel-capion">
-            <h3> Delicios food</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Aliquam varius risus nec lectus dictum ultricies quis id felis.
-              Curabitur lacinia mi ac odio placerat bibendum.
-              Etiam sed placerat ex.</p>
-            <span>~Karol Wojtyła</span>
-          </div>
-        </div>
-      </div>
-        <!--dishes gallery-->
-    <div class="gallery">
-      <div class="gellery-item">
-        <img src="assets/pizza-4.jpg" alt="image">
-        <div class="icons">
-          <a href="#"><i class="fas fa-heart"></i></a>
-          <a href="#"><i class="fas fa-share-alt"></i></a>
-        </div>
-      </div>
-      <div class="gellery-item">
-        <img src="assets/pizza-5.jpg" alt="image">
-        <div class="icons">
-          <a href="#"><i class="fas fa-heart"></i></a>
-          <a href="#"><i class="fas fa-share-alt"></i></a>
-        </div>
-      </div>
-      <div class="gellery-item">
-        <img src="assets/pizza-6.jpg" alt="image">
-        <div class="icons">
-          <a href="#"><i class="fas fa-heart"></i></a>
-          <a href="#"><i class="fas fa-share-alt"></i></a>
-        </div>
-      </div>
-      <div class="gellery-item">
-        <img src="assets/pizza-7.jpg" alt="image">
-        <div class="icons">
-          <a href="#"><i class="fas fa-heart"></i></a>
-          <a href="#"><i class="fas fa-share-alt"></i></a>
-        </div>
-      </div>
-      <div class="gellery-item">
-        <img src="assets/pizza-8.jpg" alt="image">
-        <div class="icons">
-          <a href="#"><i class="fas fa-heart"></i></a>
-          <a href="#"><i class="fas fa-share-alt"></i></a>
-        </div>
-      </div>
-    </div>
-  </script>
+    </script>
+  </section>
 
 
 
