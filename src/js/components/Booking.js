@@ -36,7 +36,7 @@ class Booking {
         thisBooking.dom.tableSelected = document.querySelector(select.booking.tableSelected);
         thisBooking.dom.address = document.querySelector(select.booking.address);
         thisBooking.dom.phone = document.querySelector(select.booking.phone);
-        thisBooking.dom.button = document.querySelector(select.booking.button);
+        thisBooking.dom.submit = document.querySelector(select.booking.submit);
         thisBooking.dom.starters = document.querySelectorAll(select.booking.starters);
     }
 
@@ -53,9 +53,10 @@ class Booking {
         thisBooking.dom.floorPlan.addEventListener('click', function (event) {
             thisBooking.initTables(event);
         });
-        thisBooking.dom.button.addEventListener('submit', function (event) {
+        thisBooking.dom.submit.addEventListener('click', function (event) {
             event.preventDefault();
             thisBooking.sendBooking();
+            console.log('submited');
         });
     }
 
@@ -149,13 +150,13 @@ class Booking {
 
     makeBooked(date, hour, duration, table) {
         const thisBooking = this;
-        if (typeof thisBooking.booked[date] == 'undefined') {
+        if (typeof thisBooking.booked[date] === 'undefined') {
             thisBooking.booked[date] = {};
         }
 
         const startHour = utils.hourToNumber(hour);
         for (let hourBlock = startHour; hourBlock < startHour + duration; hourBlock += 0.5) {
-            if (typeof thisBooking.booked[date][hourBlock] == 'undefined') {
+            if (typeof thisBooking.booked[date][hourBlock] === 'undefined') {
                 thisBooking.booked[date][hourBlock] = [];
             }
             thisBooking.booked[date][hourBlock].push(table);
@@ -194,11 +195,11 @@ class Booking {
         const thisBooking = this;
         const url = settings.db.url + '/' + settings.db.bookings;
         const payload = {
-            date: thisBooking.datePicker.value,
-            hour: thisBooking.hourPicker.value,
-            table: thisBooking.tables,
-            duration: thisBooking.hourPicker,
-            ppl: thisBooking.peopleAmount,
+            date: thisBooking.dom.datePicker.value,
+            hour: thisBooking.dom.hourPicker.value,
+            table: thisBooking.tableSelected,
+            duration: thisBooking.hourPicker.value,
+            ppl: thisBooking.peopleAmount.value,
             starters: [],
             phone: thisBooking.dom.phone.value,
             address: thisBooking.dom.address.value,

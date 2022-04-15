@@ -86,6 +86,7 @@
 }
 
 .carousel-cell {
+    background-color: #eff3f7;
     display: flex;
     flex-wrap: nowrap;
     width: 100%;
@@ -172,6 +173,22 @@
     height: 200px;
     border-radius: $radius;
 }
+
+.footer{
+    padding: 0px 0px 36px 0px;
+  
+    a{
+      font-family: $font-text;
+      padding: 10px;
+      text-decoration: underline;
+      color: $color-main;
+  
+      &:hover{
+        color: $color-danger;
+      }
+    }
+  }
+  
 
 /*
 DLACZEGO DODANIE KLASY DO IMG STYLUJE INACZEJ NIŻ IMG JAKO DOM

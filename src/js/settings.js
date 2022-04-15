@@ -71,7 +71,7 @@ export const select = {
         floorPlan: '.floor-plan ',
         address: '.order-confirmation [name="address"]',
         phone: '.order-confirmation [name="phone"]',
-        button: '.order-confirmation [type="submit"]',
+        submit: '.booking-form [type="submit"]',
         starters: '.checkbox [type="checkbox"]',
     },
     nav: {
