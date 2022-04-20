@@ -92,6 +92,10 @@
     width: 100%;
     justify-content: space-between;
     padding: 36px;
+
+    &::before {
+        display:none;
+    }
 }
 
 .cell-image {
@@ -162,7 +166,7 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-30%, 70%);
+    transform: translate(-50%, -50%);
 }
 
 

@@ -21,9 +21,14 @@ const app = {
     }
     
     thisApp.activatePage(pageMatchingHash);
+    thisApp.initEventListenerSubPage(thisApp.navLinks);
+    const homeLinks = document.querySelectorAll(select.all.links);
+    thisApp.initEventListenerSubPage(homeLinks);
+  },
 
-  
-    for(let link of thisApp.navLinks){
+  initEventListenerSubPage: function(links) {
+    const thisApp = this;
+    for(let link of links){
       link.addEventListener('click', function(event){
         const clickedElement = this;
         event.preventDefault();

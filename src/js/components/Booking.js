@@ -56,7 +56,6 @@ class Booking {
         thisBooking.dom.submit.addEventListener('click', function (event) {
             event.preventDefault();
             thisBooking.sendBooking();
-            console.log('submited');
         });
     }
 
@@ -147,7 +146,6 @@ class Booking {
         }
     }
 
-
     makeBooked(date, hour, duration, table) {
         const thisBooking = this;
         if (typeof thisBooking.booked[date] === 'undefined') {
@@ -196,9 +194,9 @@ class Booking {
         const url = settings.db.url + '/' + settings.db.bookings;
         const payload = {
             date: thisBooking.dom.datePicker.value,
-            hour: thisBooking.dom.hourPicker.value,
+            hour: thisBooking.hourPicker.value,
             table: thisBooking.tableSelected,
-            duration: thisBooking.hourPicker.value,
+            duration: thisBooking.hourAmount.value,
             ppl: thisBooking.peopleAmount.value,
             starters: [],
             phone: thisBooking.dom.phone.value,
@@ -224,17 +222,13 @@ class Booking {
             })
             .then(function (parsedResponse) {
                 console.log('parsedResponse', parsedResponse);
-                //thisBooking.clearSelected();
             })
             .then(function () {
                 thisBooking.makeBooked(payload.date, payload.hour, payload.duration, payload.table);
+                thisBooking.clearSelected();
+                thisBooking.updateDOM();
             });
     }
 }
 
 export default Booking;
-
-/*
-Zadbanie o to, aby próba wysyłki formularza, kończyła się włączeniem funkcji sendBooking.
-Przygotowanie funkcji sendBooking, która wyśle pod adres localhost:3131/bookings obiekt o następującej strukturze:
-*/
