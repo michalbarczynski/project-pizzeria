@@ -109,10 +109,3 @@ const app = {
 };
 
 app.init();
-
-/* ZMIENIĆ W ESLINT
-"indent": [
-  "error",
-  2
-],
-  */

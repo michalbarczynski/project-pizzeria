@@ -31,7 +31,7 @@ class Booking {
         thisBooking.dom.datePicker = document.querySelector(select.widgets.datePicker.wrapper);
         thisBooking.dom.hourPicker = document.querySelector(select.widgets.hourPicker.wrapper);
         thisBooking.dom.table = document.querySelector(select.booking.table);
-        thisBooking.dom.floorPlan = thisBooking.dom.wrapper.querySelector(select.booking.floorPlan); //dom.wrapper
+        thisBooking.dom.floorPlan = thisBooking.dom.wrapper.querySelector(select.booking.floorPlan);
         thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.allTables);
         thisBooking.dom.tableSelected = document.querySelector(select.booking.tableSelected);
         thisBooking.dom.address = document.querySelector(select.booking.address);
@@ -168,7 +168,6 @@ class Booking {
                 table.classList.remove(classNames.booking.tableSelected);
             }
         }
-        thisBooking.tableNumber = null;
     }
 
     initTables(event) {
@@ -195,7 +194,7 @@ class Booking {
         const payload = {
             date: thisBooking.dom.datePicker.value,
             hour: thisBooking.hourPicker.value,
-            table: thisBooking.tableSelected,
+            table: parseInt(thisBooking.tableNumber),
             duration: thisBooking.hourAmount.value,
             ppl: thisBooking.peopleAmount.value,
             starters: [],
@@ -222,6 +221,7 @@ class Booking {
             })
             .then(function (parsedResponse) {
                 console.log('parsedResponse', parsedResponse);
+                console.log(thisBooking.tableSelected);
             })
             .then(function () {
                 thisBooking.makeBooked(payload.date, payload.hour, payload.duration, payload.table);
