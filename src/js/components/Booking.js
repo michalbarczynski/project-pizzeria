@@ -188,11 +188,16 @@ class Booking {
         }
     }
 
+    /*
+nie jestem pewien, czy teraz działa wszystko poprawnie;
+usunąłem linijkę, która nadawała null w funkcji clearSelected, którą prezentowałeś dwa spotkania temu, kwestia czy to teraz zabieg ten nie zabrał innej funkcjonalności
+    */
+
     sendBooking() {
         const thisBooking = this;
         const url = settings.db.url + '/' + settings.db.bookings;
         const payload = {
-            date: thisBooking.dom.datePicker.value,
+            date: thisBooking.datePicker.value,
             hour: thisBooking.hourPicker.value,
             table: parseInt(thisBooking.tableNumber),
             duration: thisBooking.hourAmount.value,
@@ -221,7 +226,7 @@ class Booking {
             })
             .then(function (parsedResponse) {
                 console.log('parsedResponse', parsedResponse);
-                console.log(thisBooking.tableSelected);
+                console.log(thisBooking.tableSelected); 
             })
             .then(function () {
                 thisBooking.makeBooked(payload.date, payload.hour, payload.duration, payload.table);
@@ -232,3 +237,4 @@ class Booking {
 }
 
 export default Booking;
+
