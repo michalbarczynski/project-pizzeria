@@ -48,6 +48,7 @@ class Booking {
         thisBooking.hourPicker = new HourPicker(thisBooking.dom.hourPicker);
         thisBooking.dom.wrapper.addEventListener('updated', function (event) {
             thisBooking.updateDOM();
+            thisBooking.clearSelected();
             thisBooking.initTables(event);
         });
         thisBooking.dom.floorPlan.addEventListener('click', function (event) {
@@ -168,6 +169,7 @@ class Booking {
                 table.classList.remove(classNames.booking.tableSelected);
             }
         }
+        thisBooking.tableNumber = null;
     }
 
     initTables(event) {
@@ -179,19 +181,15 @@ class Booking {
             if (clickedTable.classList.contains(classNames.booking.tableBooked)) {
                 alert('table is reserved; please choose another one');
             } else {
-            if (!clickedTable.classList.contains(classNames.booking.tableSelected)) {
-                thisBooking.tableNumber = tableID; 
-            }
-            thisBooking.clearSelected(tableID);
-            clickedTable.classList.toggle(classNames.booking.tableSelected);
+                if (!clickedTable.classList.contains(classNames.booking.tableSelected)) {
+                    thisBooking.clearSelected();
+                    thisBooking.tableNumber = tableID; 
+                    clickedTable.classList.toggle(classNames.booking.tableSelected);
+                }
             }
         }
     }
 
-    /*
-nie jestem pewien, czy teraz działa wszystko poprawnie;
-usunąłem linijkę, która nadawała null w funkcji clearSelected, którą prezentowałeś dwa spotkania temu, kwestia czy to teraz zabieg ten nie zabrał innej funkcjonalności
-    */
 
     sendBooking() {
         const thisBooking = this;

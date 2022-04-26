@@ -19,7 +19,9 @@ export const select = {
         menuProducts: '#product-list > .product',
         menuProductsActive: '#product-list > .product.active',
         formInputs: 'input, select',
-        links: '.link'
+    },
+    home: {
+        navLinks: '.link'
     },
     menuProduct: {
         clickable: '.product__header',

@@ -100,11 +100,11 @@ const app = {
 
   init: function () {
     const thisApp = this;
-    thisApp.initPages();
     thisApp.initData();
     thisApp.initCart();
     thisApp.initBooking();
     thisApp.initHome();
+    thisApp.initPages();
   },
 };
 
