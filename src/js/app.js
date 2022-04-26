@@ -22,7 +22,7 @@ const app = {
     
     thisApp.activatePage(pageMatchingHash);
     thisApp.initEventListenerSubPage(thisApp.navLinks);
-    const homeLinks = document.querySelectorAll(select.all.links);
+    const homeLinks = document.querySelectorAll(select.home.navLinks);
     thisApp.initEventListenerSubPage(homeLinks);
   },
 
